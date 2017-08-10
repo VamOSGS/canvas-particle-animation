@@ -7,6 +7,11 @@ body {
     font-family: sans-serif;
     color: #fcfcfc;
     text-align: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: default;
     width: 100vw; }
     body p::after {
       content: '';

@@ -8,6 +8,8 @@ body {
     font-family: sans-serif;
     color: #fcfcfc;
     text-align: center;
+    user-select: none;
+    cursor: default;
     width: 100vw;
     &::after {
       content: '';
