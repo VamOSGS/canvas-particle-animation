@@ -15,7 +15,12 @@
       addedRadius: 2,
 
       defaultSpeed: 1,
-      addedSpeed: 2
+      addedSpeed: 2,
+
+      lineWidth: 0.5,
+      lineColor: "rgba(255,255,255, opacity)",
+
+      communicationRadius: 170
     },
     particles = [],
 
@@ -73,7 +78,22 @@
     },
     checkDistance = function(x1, y1, x2, y2) {
       return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-    };
+    },
+    communicatePoints = function (point1, father) {
+      for (var i = 0; i < father.length; i++) {
+        var distance = checkDistance(point1.x, point1.y, father[i].x, father[i].y);
+        var opacity = 1 -distance/opts.communicationRadius;
+        if (opacity > 0) {
+          canvas.lineWidth = opts.lineWidth;
+          canvas.strokeStyle = opts.lineColor.replace("opacity", opacity);
+          canvas.beginPath();
+          canvas.moveTo(point1.x, point1.y);
+          canvas.lineTo(father[i].x,father[i].y);
+          canvas.closePath();
+          canvas.stroke();
+        }
+      }
+    }
 
   function setup() {
     for (var i = 0; i < opts.particleAmount; i++) {
@@ -90,6 +110,9 @@
       particles[i].update();
       particles[i].draw();
     }
+    for (var j = 0; j < particles.length; j++) {
+        communicatePoints(particles[j], particles);
+    }
     window.requestAnimationFrame(loop);
   }
 
@@ -97,5 +120,9 @@
   canvasBody.addEventListener("click", function(e) {
     particles.push( new Particle (e.pageX, e.pageY) );
     console.log(particles.length);
-  })
+  });
+  canvasBody.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+    particles.splice(particles.length -1, 1);
+  });
 })();

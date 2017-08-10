@@ -2,7 +2,7 @@ body {
   margin: 0;
   overflow: hidden;
 
-  p {
+  .hint {
     position: absolute;
     text-transform: uppercase;
     font-family: sans-serif;
@@ -10,38 +10,87 @@ body {
     text-align: center;
     user-select: none;
     cursor: default;
-    width: 100vw;
-    &::after {
-      content: '';
-      display: block;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      // background-color: #fcfcfc;
-      border: 1px solid #fcf;
-      position: absolute;
-      right: 0;
-      left: 0;
-      opacity: 1;
+    width: 100%;
+
+    .remove {
+      width: 215px;
       margin: auto;
-      top: 25px;
-      animation: clickAnim 0.8s linear infinite alternate-reverse;
+      position: relative;
+      span {
+        position: absolute;
+        opacity: 1;
+        margin: auto;
+        top: -5px;
+        width: 25px;
+        right:-20px;
+        border-radius: 50%;
+        height: 25px;
+        // border:0px solid #fcf;
+        animation: clickAnim 0.8s linear infinite alternate-reverse;
+        &::before {
+          content: '';
+          display: block;
+          position: absolute;
+          width: 1px;
+          right: 0;
+          transform: rotate(45deg);
+          height: 20px;
+          margin: auto;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          background-color: #fcfcfc;
+        }
+        &::after {
+          position: absolute;
+          content: '';
+          display: block;
+          width: 1px;
+          right: 0;
+          margin: auto;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          transform: rotate(-45deg);
+          height: 20px;
+          background-color: #fcfcfc;
+        }
+      }
     }
-    &::before {
-      content: '';
-      display: block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      // background-color: #fcfcfc;
-      border: 1px solid #fcf;
-      position: absolute;
-      right: 0;
-      left: 0;
-      opacity: 1;
-      margin: auto;
-      top: 30px;
-      animation: clickAnim2 0.8s linear infinite reverse;
+
+    .add {
+      position: relative;
+      width: 215px;
+      margin: 15px auto;
+      span {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        // background-color: #fcfcfc;
+        border: 1px solid #fcf;
+        position: absolute;
+        right: 0;
+        opacity: 1;
+        margin: auto;
+        top: -2px;
+        animation: clickAnim 0.8s linear infinite alternate-reverse;
+        &::before {
+          content: '';
+          display: block;
+          width: 10px;
+          height: 10px;
+          border-radius: 50%;
+          // background-color: #fcfcfc;
+          border: 1px solid #fcf;
+          position: absolute;
+          right: 0;
+          left: 0;
+          opacity: 1;
+          margin: auto;
+          top: 4px;
+          animation: clickAnim2 0.8s linear infinite reverse;
+        }
+      }
     }
   }
 }
@@ -49,10 +98,12 @@ body {
 @keyframes clickAnim {
   0% {
     opacity: 0;
-
+    transform: scale(0.9);
   }
+
   100% {
     opacity: 0.8;
+    transform: scale(1);
   }
 }
 @keyframes clickAnim2 {
@@ -60,6 +111,7 @@ body {
     transform: scale(0);
     opacity: 0;
   }
+
   100% {
     opacity: 1;
     transform: scale(1);
